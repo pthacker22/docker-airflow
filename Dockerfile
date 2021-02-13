@@ -15,7 +15,7 @@ ENV TERM linux
 ARG AIRFLOW_VERSION=1.10.12
 ARG AIRFLOW_USER_HOME=/usr/local/airflow
 ARG AIRFLOW_DEPS=""
-ARG PYTHON_DEPS=""
+ARG PYTHON_DEPS="python-ldap"
 ENV AIRFLOW_HOME=${AIRFLOW_USER_HOME}
 ENV HOME=${AIRFLOW_USER_HOME}
 ENV ENV=$HOME/.profile
@@ -52,6 +52,10 @@ RUN set -ex \
         rsync \
         netcat \
         locales \
+	libsasl2-dev \
+	python-dev \
+	libldap2-dev \
+	libssl-dev
     && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
@@ -84,6 +88,8 @@ RUN set -ex \
 COPY script/entrypoint.sh /entrypoint.sh
 COPY script/configure_auth.py /configure_auth.py
 COPY config/airflow.cfg ${AIRFLOW_USER_HOME}/airflow.cfg
+COPY config/webserver_config.py ${AIRFLOW_USER_HOME}/webserver_config.py
+COPY config/RH-IT-Root-CA.crt /etc/ssl/certs/ldap.crt
 
 COPY patch/flask_appbuilder.patch /tmp
 RUN cd /usr/local/lib/python3.7/site-packages \
