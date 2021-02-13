@@ -6,20 +6,20 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 SQLALCHEMY_DATABASE_URI = conf.get('core', 'SQL_ALCHEMY_CONN')
 CSRF_ENABLED = True
-AUTH_TYPE = os.environ.get("AUTH_TYPE")
+AUTH_TYPE = AUTH_LDAP
 
-AUTH_ROLE_ADMIN = os.environ.get("AUTH_ROLE_ADMIN")
-AUTH_USER_REGISTRATION = os.environ.get("AUTH_USER_REGISTRATION")
+AUTH_ROLE_ADMIN = 'Admin'
+AUTH_USER_REGISTRATION = True
 
-AUTH_USER_REGISTRATION_ROLE = os.environ.get("AUTH_USER_REGISTRATION_ROLE")
+AUTH_USER_REGISTRATION_ROLE = "Op"
 
-AUTH_LDAP_SERVER = os.environ.get("AUTH_LDAP_SERVER")
-AUTH_LDAP_SEARCH = os.environ.get("AUTH_LDAP_SEARCH")
-AUTH_LDAP_BIND_USER = os.environ.get("AUTH_LDAP_BIND_USER")
+AUTH_LDAP_SERVER = 'ldaps://ldap.corp.redhat.com:636'
+AUTH_LDAP_SEARCH = "ou=Users,dc=redhat,dc=com"
+AUTH_LDAP_BIND_USER = 'uid=ssaappuser,ou=serviceaccounts,dc=redhat,dc=com'
 AUTH_LDAP_BIND_PASSWORD = os.environ.get("AUTH_LDAP_BIND_PASSWORD")
-AUTH_LDAP_UID_FIELD = os.environ.get("AUTH_LDAP_UID_FIELD")
+AUTH_LDAP_UID_FIELD = 'uid'
 
 # LDAPS
-AUTH_LDAP_USE_TLS = os.environ.get("AUTH_LDAP_USE_TLS")
-AUTH_LDAP_ALLOW_SELF_SIGNED = os.environ.get("AUTH_LDAP_ALLOW_SELF_SIGNED")
-AUTH_LDAP_TLS_CACERTFILE = os.environ.get("AUTH_LDAP_TLS_CACERTFILE")
+AUTH_LDAP_USE_TLS = False
+AUTH_LDAP_ALLOW_SELF_SIGNED = False
+AUTH_LDAP_TLS_CACERTFILE = '/etc/ssl/certs/ldap.crt'
