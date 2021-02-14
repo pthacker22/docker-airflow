@@ -13,8 +13,8 @@ AUTH_USER_REGISTRATION = True
 
 AUTH_USER_REGISTRATION_ROLE = "Op"
 
-AUTH_LDAP_SERVER = 'ldaps://ldap.corp.redhat.com:636'
-AUTH_LDAP_SEARCH = "ou=Users,dc=redhat,dc=com"
+AUTH_LDAP_SERVER = os.environ.get("AUTH_LDAP_SERVER")
+AUTH_LDAP_SEARCH = os.environ.get("AUTH_LDAP_SEARCH")
 AUTH_LDAP_BIND_USER = 'uid=ssaappuser,ou=serviceaccounts,dc=redhat,dc=com'
 AUTH_LDAP_BIND_PASSWORD = os.environ.get("AUTH_LDAP_BIND_PASSWORD")
 AUTH_LDAP_UID_FIELD = 'uid'
@@ -22,4 +22,4 @@ AUTH_LDAP_UID_FIELD = 'uid'
 # LDAPS
 AUTH_LDAP_USE_TLS = False
 AUTH_LDAP_ALLOW_SELF_SIGNED = False
-AUTH_LDAP_TLS_CACERTFILE = '/etc/ssl/certs/ldap.crt'
+AUTH_LDAP_TLS_CACERTFILE = os.environ.get("AUTH_LDAP_TLS_CACERTFILE")
